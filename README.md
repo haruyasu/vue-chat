@@ -1,1 +1,1 @@
-# vue-chat
+# Vue.js Tutorial Chat
