@@ -6,6 +6,12 @@
     <v-card-text>
       <v-form>
         <v-text-field
+          prepend-icon="mdi-account"
+          type="text"
+          label="ユーザー名"
+          v-model="name"
+        />
+        <v-text-field
           prepend-icon="mdi-email"
           type="email"
           label="メールアドレス"
@@ -31,30 +37,46 @@
 </template>
 
 <script>
+import db from "@/firebase/init";
 import firebase from "firebase";
 export default {
   name: "Signup",
   data() {
     return {
+      name: null,
       email: null,
       password: null,
       feedback: null,
-      showPassword: false
+      showPassword: false,
     };
   },
   methods: {
     signup() {
-      if (this.email && this.password) {
+      if (this.name && this.email && this.password) {
         this.feedback = null;
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
-          .then(() => {
-            this.$router.push({ name: "Home" });
-          })
-          .catch(() => {
-            this.feedback = "メールアドレスまたはパスワードが正しくありません";
-          });
+        let ref = db.collection("users").doc(this.email);
+        ref.get().then(doc => {
+          if (doc.exists) {
+            this.feedback = "このメールアドレスは既に使用されています";
+          } else {
+            firebase
+              .auth()
+              .createUserWithEmailAndPassword(this.email, this.password)
+              .then(cred => {
+                ref.set({
+                  name: this.name,
+                  user_id: cred.user.uid
+                });
+              })
+              .then(() => {
+                this.$router.push({ name: "Home" });
+              })
+              .catch(() => {
+                this.feedback =
+                  "メールアドレスまたはパスワードが正しくありません";
+              });
+          }
+        });
       } else {
         this.feedback = "メールアドレスとパスワードを入力してください";
       }

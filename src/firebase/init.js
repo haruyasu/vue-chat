@@ -1,3 +1,6 @@
+import firebase from "firebase/app";
+import "firebase/firestore";
+
 var firebaseConfig = {
   apiKey: "AIzaSyAGqzO5mGwqmzt2Ej8V1b5HchyqFoSRyMA",
   authDomain: "chat-9a169.firebaseapp.com",
@@ -8,4 +11,6 @@ var firebaseConfig = {
   appId: "1:1009009672553:web:daf84e3eb66a96abf23df8"
 };
 
-export default firebaseConfig;
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+export default firebaseApp.firestore();
