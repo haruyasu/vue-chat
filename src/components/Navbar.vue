@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app color="primary" dark>
     <v-toolbar-title>
-      Vue de Chat
+      Chat
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>

@@ -3,6 +3,9 @@ import App from "./App";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
+import VueChatScroll from "vue-chat-scroll";
+
+Vue.use(VueChatScroll);
 
 Vue.config.productionTip = false;
 
