@@ -87,7 +87,7 @@ export default {
 }
 
 .content {
-  max-height: 550px;
+  height: 550px;
   overflow: auto;
 
   &::-webkit-scrollbar {
